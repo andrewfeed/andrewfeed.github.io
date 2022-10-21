@@ -32,10 +32,6 @@ dictionary = {
         'ru': 'Опыт работы с нейросетями',
         'en': 'Experience with neural networks'
     },
-    'neuralnetworks': {
-        'ru': 'Умение работать с многопоточностью',
-        'en': 'Ability to work with multithreading'
-    },
     'multithreading': {
         'ru': 'Умение работать с многопоточностью',
         'en': 'Ability to work with multithreading'
