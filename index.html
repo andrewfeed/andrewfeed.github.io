@@ -1,76 +1,85 @@
 <!DOCTYPE html>
-<title>Page</title>
-<link href="style.css" rel="stylesheet">
+<title>Info</title>
+<link href="css/style.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap-grid.css" rel="stylesheet"
     crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+<script src="js/main.js" defer></script>
 <html>
 
 <body>
     <div class="row justify-content-center">
         <div class="col-lg-8 main m-4 px-4">
-            <div class="pt-4">
+            <div class="d-flex my-3 flex-row flex-wrap">
+                <div class="me-2 p-1 ">
+                    Язык | Language
+                </div>
+                <div class="me-2 p-1 lang-item selected" id="siwtchToRu">
+                    RU 🇷🇺
+                </div>
+                <div class="me-2 p-1 lang-item" id="siwtchToEn">
+                    EN 🇬🇧
+                </div>
+            </div>
+            <div class="">
                 <div class="">Hello. I am andrewfeed.</div>
-                <div class="">Место рождения: Россия 🇷🇺</div>
-                <div class="">Текущее местоположение: Грузия 🇬🇪</div>
-                <div class="">Знание языков: Русский 🇷🇺, Английский 🇬🇧 (На уровне чтения
-                    документации)</div>
+                <div class="" translation-key="birth_place"></div>
+                <div class="" translation-key="current_location"></div>
+                <div class="" translation-key="languages"></div>
                 <ul>
-                    <li>Знание основных алгоритмов и структур данных</li>
-                    <li>Знание OOP</li>
-                    <li>Знание SOLID</li>
-                    <li>Опыт написания клиент-серверных приложений</li>
-                    <li>Опыт работы с нейросетями</li>
-                    <li>Умение работать с многопоточностью</li>
-                    <li>Умение работать с Git</li>
-                    <li>Умение работать с технологиями тестирования</li>
+                    <li translation-key="algo"></li>
+                    <li translation-key="oop"></li>
+                    <li translation-key="solid"></li>
+                    <li translation-key="slientserver"></li>
+                    <li translation-key="neuralnetworks"></li>
+                    <li translation-key="multithreading"></li>
+                    <li translation-key="git"></li>
+                    <li translation-key="testing"></li>
                 </ul>
-                <div class="">Образование: Vyatka State University, Fundamental Informatics and IT, Bachelor's degree
-                    (Фундаментальная информатика и информационные технологии 1.02.04.02)</div>
+                <div translation-key="education"></div>
             </div>
             <div class="d-flex flex-row flex-wrap">
-                <div class="py-2 pe-2 me-1 mt-1 d-flex flex-row">
-                    Имел дело со следующими технологиями:
+                <div class="py-2 pe-2 me-1 mt-1 d-flex flex-row" translation-key="stack">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">Python</div><img src="python.png" class="icon">
+                    <div class="pl-4">Python</div><img src="images/python.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">C#</div><img src="csharp.png" class="icon">
+                    <div class="pl-4">C#</div><img src="images/csharp.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">Delphi</div><img src="delphi.png" class="icon">
+                    <div class="pl-4">Delphi</div><img src="images/delphi.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">Unity</div><img src="unity.png" class="icon">
+                    <div class="pl-4">Unity</div><img src="images/unity.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">C++</div><img src="cpp.png" class="icon">
+                    <div class="pl-4">C++</div><img src="images/cpp.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">JavaScript</div><img src="js.png" class="icon">
+                    <div class="pl-4">JavaScript</div><img src="images/js.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">HTML</div><img src="html.png" class="icon">
+                    <div class="pl-4">HTML</div><img src="images/html.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">CSS</div><img src="css.png" class="icon">
+                    <div class="pl-4">CSS</div><img src="images/css.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">PHP</div><img src="php.png" class="icon">
+                    <div class="pl-4">PHP</div><img src="images/php.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">Java</div><img src="java.png" class="icon">
+                    <div class="pl-4">Java</div><img src="images/java.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">PostgreSQL</div><img src="pgsql.png" class="icon">
+                    <div class="pl-4">PostgreSQL</div><img src="images/pgsql.png" class="icon">
                 </div>
                 <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                    <div class="pl-4">MySQL</div><img src="mysql.png" class="icon">
+                    <div class="pl-4">MySQL</div><img src="images/mysql.png" class="icon">
                 </div>
-
             </div>
-            <div class="my-4" style="text-align: center; font-size: 30px">Результаты моей деятельности</div>
+            <div translation-key="portfolio" class="my-4" style="text-align: center; font-size: 30px">Результаты моей
+                деятельности</div>
             <div class="m-3">
                 <div class="portfolio-item p-3 my-1">
                     <div class="d-flex flex-row">
@@ -81,22 +90,20 @@
                                     target="_blank" rel="noopener noreferrer" style="color: black;"
                                     class="header-tag">Google Play
                             </div>
-                            <img src="gp.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/gp.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 closed-source d-flex flex-row">
                             <div class="pl-2 mt-1 mx-1 header-tag">closed source</div>
                         </div>
                     </div>
-                    <div class="my-2">Игра создана без глобального использования стороннего кода и
-                        ассетов. Была разработана и выложена в общий доступ летом 2021 года. Длительность разработки: 3
-                        месяца.</div>
+                    <div class="my-2" translation-key="ray_shard"></div>
                     <div class="d-flex flex-row">
                         <div class="p-2 ms-1 stack-item d-flex flex-row">
-                            <div class="pl-4">C#</div><img src="csharp.png" class="icon">
+                            <div class="pl-4">C#</div><img src="images/csharp.png" class="icon">
                         </div>
                         <div class="p-2 ms-1 stack-item d-flex flex-row">
-                            <div class="pl-4">Unity</div><img src="unity.png" class="icon">
+                            <div class="pl-4">Unity</div><img src="images/unity.png" class="icon">
                         </div>
                     </div>
                 </div>
@@ -108,7 +115,7 @@
                                 <a href="https://www.youtube.com/watch?v=J4JDzjAq9Pc" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">YouTube
                             </div>
-                            <img src="youtube.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/youtube.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 closed-source d-flex flex-row">
@@ -118,28 +125,23 @@
                             <div class="pl-2 mt-1 mx-1 header-tag">outdated</div>
                         </div>
                     </div>
-                    <div class="my-2">AFK бот предназначенный для поднятия показателей учётных записей (открытия доступа
-                        к
-                        рейтинговым матчам) в игре Dota 2. Обладал большим количеством режимов работы и дополнительных
-                        функций. Являлся коммерческим программным обеспечением. Функционировал и получал обновления на
-                        протяжении нескольких лет, на данный момент не
-                        актуален.
+                    <div class="my-2" translation-key="afk_bot">
                     </div>
                     <div class="d-flex flex-row">
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">Delphi</div><img src="delphi.png" class="icon">
+                            <div class="pl-4">Delphi</div><img src="images/delphi.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">PHP</div><img src="php.png" class="icon">
+                            <div class="pl-4">PHP</div><img src="images/php.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">HTML</div><img src="html.png" class="icon">
+                            <div class="pl-4">HTML</div><img src="images/html.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">CSS</div><img src="css.png" class="icon">
+                            <div class="pl-4">CSS</div><img src="images/css.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">MySQL</div><img src="mysql.png" class="icon">
+                            <div class="pl-4">MySQL</div><img src="images/mysql.png" class="icon">
                         </div>
                     </div>
                 </div>
@@ -151,7 +153,7 @@
                                 <a href="https://www.youtube.com/watch?v=1jAhailmKMg" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">YouTube
                             </div>
-                            <img src="youtube.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/youtube.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 stack-item d-flex flex-row">
@@ -159,29 +161,26 @@
                                 <a href="https://github.com/andrewfeed/antiahkloader" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">Git Hub
                             </div>
-                            <img src="github.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/github.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 closed-source d-flex flex-row">
                             <div class="pl-2 mt-1 mx-1 header-tag">closed source</div>
                         </div>
                     </div>
-                    <div class="my-2">Сборник макросов, позволяющий получать преимущество в игре Dota 2, за счёт
-                        быстрого, автоматического нажатия различных комбинаций клавиш. На данный момент является
-                        актуальным
-                        программным обеспечением и пользуется спросом.</div>
+                    <div class="my-2" translation-key="anti_ahk"></div>
                     <div class="d-flex flex-row">
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">Delphi</div><img src="delphi.png" class="icon">
+                            <div class="pl-4">Delphi</div><img src="images/delphi.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">PHP</div><img src="php.png" class="icon">
+                            <div class="pl-4">PHP</div><img src="images/php.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">HTML</div><img src="html.png" class="icon">
+                            <div class="pl-4">HTML</div><img src="images/html.png" class="icon">
                         </div>
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">CSS</div><img src="css.png" class="icon">
+                            <div class="pl-4">CSS</div><img src="images/css.png" class="icon">
                         </div>
                     </div>
                 </div>
@@ -193,7 +192,7 @@
                                 <a href="https://www.youtube.com/watch?v=AVY5m_JwAHc" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">YouTube
                             </div>
-                            <img src="youtube.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/youtube.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 stack-item d-flex flex-row">
@@ -201,22 +200,17 @@
                                 <a href="https://github.com/andrewfeed/dotaunlink" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">Git Hub
                             </div>
-                            <img src="github.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/github.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 closed-source d-flex flex-row">
                             <div class="pl-2 mt-1 mx-1 header-tag">closed source</div>
                         </div>
                     </div>
-                    <div class="my-2">Программа, позволяющая полностью удалить информацию о прошлых авторизациях Steam
-                        аккаунтов на
-                        ПК. Используется для снятия блокировки по системным данным и манипуляции скрытым рейтингом
-                        учётных записей. На данный момент является
-                        актуальным
-                        программным обеспечением и пользуется спросом.</div>
+                    <div class="my-2" translation-key="dotaunlink"></div>
                     <div class="d-flex flex-row">
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">C#</div><img src="csharp.png" class="icon">
+                            <div class="pl-4">C#</div><img src="images/csharp.png" class="icon">
                         </div>
                     </div>
                 </div>
@@ -228,20 +222,17 @@
                                 <a href="https://github.com/andrewfeed" target="_blank" rel="noopener noreferrer"
                                     style="color: black;" class="header-tag">Git Hub
                             </div>
-                            <img src="github.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/github.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 open-source d-flex flex-row">
                             <div class="pl-2 mt-1 mx-1 header-tag">open source</div>
                         </div>
                     </div>
-                    <div class="my-2">Программный код, позволяющий определить, насколько матч является подозрительным с
-                        точки зрения злоупотребления изменением рейтинга побед посредством использования двух и более
-                        учётных
-                        записей одним игроком в матче.</div>
+                    <div class="my-2" translation-key="d2ma"></div>
                     <div class="d-flex flex-row">
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">Python</div><img src="python.png" class="icon">
+                            <div class="pl-4">Python</div><img src="images/python.png" class="icon">
                         </div>
                     </div>
                 </div>
@@ -253,7 +244,7 @@
                                 <a href="https://www.youtube.com/watch?v=MsRkVEhXdKI" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">YouTube
                             </div>
-                            <img src="youtube.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/youtube.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 stack-item d-flex flex-row">
@@ -261,7 +252,7 @@
                                 <a href="https://github.com/andrewfeed/abusescripts" target="_blank"
                                     rel="noopener noreferrer" style="color: black;" class="header-tag">Git Hub
                             </div>
-                            <img src="github.png" class="icon pl-1 mt-1 me-1">
+                            <img src="images/github.png" class="icon pl-1 mt-1 me-1">
                             </a>
                         </div>
                         <div class="me-1 m-1 closed-source d-flex flex-row">
@@ -271,12 +262,10 @@
                             <div class="pl-2 mt-1 mx-1 header-tag">outdated</div>
                         </div>
                     </div>
-                    <div class="my-2">Программа, позволяющая автоматизировать прокачку платного дополнения Dota Plus. На
-                        момент активной программной уязвимости, позволявшей повышать уровень персонажа пользовалась
-                        спросом. На данный момент уязвимость исправлена, ПО не актуально.</div>
+                    <div class="my-2" translation-key="abuse_scripts"></div>
                     <div class="d-flex flex-row">
                         <div class="p-2 me-1 mt-1 stack-item d-flex flex-row">
-                            <div class="pl-4">C#</div><img src="csharp.png" class="icon">
+                            <div class="pl-4">C#</div><img src="images/csharp.png" class="icon">
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
-*{
+* {
     font-size: 20px;
 }
+
 html,
 body {
     max-width: 100%;
@@ -72,9 +73,21 @@ div.image:before {
 
 a {
     color: blue;
-    text-decoration: none; /* no underline */
+    text-decoration: none;
+    /* no underline */
 }
 
 .header-tag {
     font-size: 18px;
+}
+
+.lang-item {
+    background-color: rgb(225, 225, 225);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.selected {
+    box-shadow:0 0 10px #000;
+    cursor:default;
 }
