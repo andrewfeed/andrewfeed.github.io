@@ -1,0 +1,18 @@
+<script>
+  var userLang = navigator.language || navigator.userLanguage;
+  var lang = userLang.toLowerCase().substring(0, 2);
+  var baseURL = window.location.origin;
+  if (lang === 'ru') {
+    window.location.href = baseURL + '/ru/';
+  } else {
+    window.location.href = baseURL + '/en/';
+  }
+</script>
+
+<noscript>
+  <p>Your browser does not support automatic redirection or JavaScript is disabled. Please choose your language:</p>
+  <ul>
+    <li><a href="/en/">English</a></li>
+    <li><a href="/ru/">Русский</a></li>
+  </ul>
+</noscript>

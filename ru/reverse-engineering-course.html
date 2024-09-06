@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    
+<title>Курс по реверс-инжинирингу</title>
+<meta property="og:title" content="Курс по реверс-инжинирингу">
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="description" content="Этот курс содержит базу по реверс-инжинирингу и разработке читов. В нём разбирается множество подходов включая internal, external и DMA читы на языке программирования C++">
+<meta property="og:description" content="Этот курс содержит базу по реверс-инжинирингу и разработке читов. В нём разбирается множество подходов включая internal, external и DMA читы на языке программирования C++">
+
+
+<meta name="robots" content="index, follow"> 
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+</head>
+<body>
+    <header>
+        <nav>
+        </nav>
+    </header>
+    <main class="flex justify-center items-center min-h-screen pt-10">
+        <div class="w-full max-w-3xl p-4 bg-white rounded">
+            <h1 class="text-center">
+                Курс по реверс-инжинирингу 
+            </h1>
+            <div class="text-center">
+                
+              </div>
+            <!-- <p class="text-gray-600 mb-4 author text-center"> • 04 AUG 2024</p> -->
+            <div class="flex justify-center space-x-2 mt-4">
+                
+                <a href="/ru" class="no-underline justify-center"> 
+                
+                    <p class="text-gray-600 mb-4 author text-center mt-0">andrewfeed</p>
+                </a>
+                <p class="text-gray-600 mb-4 author text-center mt-0"> • </p>
+                <p class="text-gray-600 mb-4 author text-center mt-0">04 AUG 2024</p>
+            </div>
+            <div class="content text-justify">
+                <div class="inserted-block p-2 mt-2 mb-2 border-l-4 border-gray-500" style="background-color: rgb(45,45,45);">
+    <div class="flex flex-wrap">
+        <p class="flex-shrink m-0 mr-2 text-xs" style="color: rgb(255, 255, 255); font-family: CustomSansSerif,'Lucida Grande',Arial,sans-serif;">
+            
+            <a href="/en/" style="color: rgb(255, 255, 255); font-family: CustomSansSerif,'Lucida Grande',Arial,sans-serif;">in english</a>
+            
+        </p>
+    </div>
+</div>
+                
+
+<a href="/ru/reverse-engineering-course" class="block" style="text-decoration: none;">
+<div class="inserted-block p-2 mt-1 mb-2" style="background: linear-gradient(45deg, #3a6186, #89253e); background-size: 400% 400%; animation: gradientShift 10s ease infinite;">
+    <p class="flex-shrink m-0 mr-2 text-sm font-bold" style="color: rgb(255, 255, 255); font-family: CustomSansSerif,'Lucida Grande',Arial,sans-serif;">
+        Непонятен материал? - смотри курс по реверс-инжинирингу и написанию софта
+    </p>
+</div>
+</a>
+
+<style>
+@keyframes gradientShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+</style>
+
+                <div class="inserted-block p-2 mt-1 mb-2 border-l-4 border-red-500" style="background-color: rgb(45,45,45);">
+    <div class="flex flex-wrap">
+        <p class="flex-shrink m-0 mr-2 text-xs" style="color: rgb(255, 255, 255); font-family: CustomSansSerif,'Lucida Grande',Arial,sans-serif;">
+            ДАННЫЙ МАТЕРИАЛ НОСИТ ИСКЛЮЧИТЕЛЬНО ОБРАЗОВАТЕЛЬНЫЙ ХАРАКТЕР 
+        </p>
+        <a href="/ru/disclaimer.html" target="_blank" style="color: rgb(255, 255, 255); font-family: CustomSansSerif,'Lucida Grande',Arial,sans-serif;">
+            <p class="flex-shrink m-0 mr-2 text-xs no-underline" style="color: rgb(255, 255, 255); font-family: CustomSansSerif,'Lucida Grande',Arial,sans-serif;">
+                Подробнее...
+            </p>
+        </a>
+    </div>
+</div>
+
+                
+
+                <h3 id="о-чём-этот-курс">О чём этот курс?</h3>
+
+<p>В данном курсе разбираются многие аспекты из разработки, обратной разработки и защиты программного обеспечения.</p>
+
+<h3 id="какая-целевая-аудитория-у-этого-курса">Какая целевая аудитория у этого курса?</h3>
+
+<p>Он рассчитан на новичков-среднячков в программировании и может быть при желании быть рассмотрен людьми без опыта в разработке. Если у человека есть желание, способность к обучению, умение искать информацию и решать задачи - я однозначно могу порекомендовать этот материал для старта в этой области.</p>
+
+<h3 id="чем-этот-материал-может-быть-полезен-кроме-как-для-разработки-читов">Чем этот материал может быть полезен кроме как для разработки читов?</h3>
+
+<p>Человек, который имеет опыт в разработке читов, определённо обладает рядом навыков, которые могут быть использованы в ряде других областей, связанных с разработкой и защитой обычного ПО, античитов, антивирусов или самих игр.</p>
+
+<h3 id="что-входит-в-курс-по-реверс-инжинирингу">Что входит в курс по реверс-инжинирингу?</h3>
+
+<p>Курс начинается с общих материалов устройстве компьютера, типов данных, процесса компиляции, устройстве памяти и остальных базовых вещах. В нём рассказывается как о процессе реверс-инжиниринга, так и о разработке с использованием полученных данных. Обозреваются различные походы такие как external, internal и DMA. Так же в ходе повествования используются на практике большое количество инструментов обратной разработки таких как IDA, Ghidra, Cheat Engine, ReClass, dnSpy и прочих.</p>
+
+<p>Со списком уже выпущенного контента можно ознакомится на этой странице, в <a href="https://docs.google.com/document/d/1stCMbsfNvylwV6wVvjudyjZq8b-XBx9Ch2Co7LH5XQc" target="_blank">google docs</a> (может быть рассинхронизирован с этим и иметь больше записей, потому что его можно менее затратно обновлять), а так же можно посмотреть <a href="https://youtu.be/eO3A1rV-stk" target="_blank">краткий обзор</a> (на данный момент выпущено большее количество контента, чем в этом ролике). Общий объём курса составляет около <strong>50 роликов</strong> совокупной продолжительности около <strong>15+ часов</strong>. Тем для контента достаточно и скорее всего ролики будут выходить в таком же темпе как обычно. Вместо того, чтобы читать описание я предлагаю вам ознакомится со списком ниже.</p>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Видео-обзор курса</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/eO3A1rV-stk" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+
+</div>
+
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реверс инжиниринг: краткий обзор курса, желательные навыки</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/Jw6-jRxbzyA" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+
+</div>
+
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Обзор функций читов (AIMBOT (SILENT, VECTOR, ASSIST), MAGIC BULLETS, ESP, RADAR, NO RECOIL, NO SPREAD, RAPID FIRE, AUTO GUN, FAST KNIFE, MAGNET, TELEKILL, TELEPORT)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=egaef45v3Wg" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/6a6f748e-6cf0-400d-9f39-e7a1f34f5d81" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kakie-byvaiut-96818089?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Как устроен компьютер: Оперативная память, процессор, видеокарта, карты расширения</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/19i307tJfHs" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/dc93f96e-f8cb-42d6-b515-26d2a100b332?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kak-ustroen-88564290" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Виды читов: external, internal, user-mode, kernel mode, перехват пакетов, скрипты/макросы, dma. Protection ring</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=gMvjZh-Mk6A" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/f3fef49f-a7f8-4c9f-badf-59735f4b26b1?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/vidy-chitov-user-88980143?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Процесс компиляции, преобразование кода в ассемблер на примерах</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/erS8zgCWaFY" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/5dd3a9bf-ac5f-44da-b764-33021b133f6d?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kompiliatsiia-v-89363251?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ida</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Основные типы данных при обратной разработке и их представление в памяти: int, float, Vector2, Vector3, Матрицы, Классы, Структуры</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/8ei61NZJRBA" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/23b969a9-e30a-4a94-8199-ef2c6711dda0?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/osnovnye-tipy-89466483?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c#</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Понимание пространства, дистанции и преобразования координат</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/9XodonK_Qkg" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/c24645b4-445c-4de3-becf-7aa86e83fd15?share=success_publish_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/prostranstvo-90792274?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c#</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Устройство памяти: Адреса/Указатели/Оффсеты/Базовый адрес, структура памяти</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/CPcEZfFq_vY" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/5a102027-f2a0-4650-bcac-b86198ff0df0?share=success_publish_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kak-khranitsia-v-92262363?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Разница между статическими и динамическими адресами в памяти</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/FR5tkHcziu4?si=fckXDUIS9qk91wod" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/23c71c8a-5acb-4a2e-8c43-d490f4c07ad8?share=success_publish_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/dinamicheskie-i-94692725?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Регистры и Инструкции процессора</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/_WTP-VaoWSU" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/69a3d71e-4e00-4564-89d4-877ac554c444?share=success_publish_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/registry-i-92999619?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Обзор софта используемого для реверс инжиниринга (Cheat Engine, ReClass, IDA, x64dbg, и т.д.)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/hTPiA0d0jTs" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/a4d57766-49e5-49ad-ae5a-2ceb545ac96a?share=success_publish_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/programmy-dlia-93396004?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ida</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">reclass</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">ReClass: Обзор, применение, разметка всех типов данных в памяти</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/C7Lw8bttYiA?si=KBFQIROEotsm5cbv" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/2f0b9bf0-4c07-4625-8f19-2a91e5a2306d?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/93777433" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">reclass</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c#</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">dnSpy/ILSpy/dotPeek просмотр, декомпиляция NET-сборок / IL2CPP</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/URYqARkZ-GM" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/b945ea18-c898-4562-8943-0337f5d3fd9d" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/dekompiliatsiia-94307410?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">dnSpy</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Cheat Engine: Типы поиска. Поиск точного и неизвестного значения, типы данных</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=MBrbOlJ6CVg&amp;ab_channel=ANDREWFEED" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/222e5d6e-9718-471b-ba4b-af754a77c943?share=success_publish_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kak-sdelat-svoi-94421026?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Cheat Engine: Указатели. Способы поиска (ручной, сканирование, структуры, отладчик, другие), борьба с ASLR</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=qAltnghOfuw&amp;ab_channel=ANDREWFEED" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/d6b05fe4-cfe9-4fe2-b04f-c934af7ee143?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/5-sposobov-iskat-94987463?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Cheat Engine: Взлом через 'nop'. Изменение/Отключение логики (инструкций) (shellcode patching)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/r8K31iIXyoo" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/86294d5b-0196-490a-845c-933ad4ded55f" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/chit-na-poliot-95110512" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Cheat Engine: Поиск ViewMatrix в памяти игр + python скрипт для ускорения поиска</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/HF5L73jNf2Q?si=T8XKQcH64uQKHyvv" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/51684cb2-f241-42ff-acfa-6d06bdc91349?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kak-napisat-vkh-95665493?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">python</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">view matrix</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Cheat Engine: Поиск Entity List, позиции игроков</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=CTtAUl-l4qw&amp;ab_channel=ANDREWFEED" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/c055d3c4-38eb-49de-997e-6c727f669bb7?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/ishchem-entity-v-96033664" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">dnSpy</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Чтение/Запись памяти процессов</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/rrVctf_woTI" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/57379e67-3426-4ae2-8b9f-11caab2fbc02" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/zapis-chtenie-96225550?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация базы External-отрисовки, меню и конфига на C++</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/pIc7MdBX_Ao?si=xewyo0dtsDOy8vxM" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/3072fbac-657f-44f4-ada4-25cf3bd29a4d" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/external-c-97055533?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">imgui</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация на C++: NoRecoil, NoSpread, RapidFire, Infinite Ammo, AOB скан, изменение ASM (shellcode patching)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=TEosJbd6tQs" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/05c0c160-f7f8-453d-9d7c-d8a250523048" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/aob-skan-asm-c-97534411" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">aob</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">dnSpy</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация радара на C++ (Отдельная отрисовка / На внутриигровом радаре)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/NJa3twtz6O8" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/de739b48-de82-409e-8d8b-b5dfce591a87" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/custom-internal-97936573" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">reclass</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация AIMBOT на C++ (external, + visible check)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=ByRjYCLpL5c&amp;ab_channel=ANDREWFEED" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/22079d09-a967-49e3-bbce-dcdc581b9d3d" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/external-aimbot-98639638?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">aim</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">vector aim</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация ESP на C++: Функция WorldToScreen</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/MldTrGJbU_o?si=wYIoTTfRTfJRoqA_" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/e77f09d7-0838-425a-b26c-70fd5d5fd055" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/realizatsiia-esp-99144171?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">esp</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">world to screen</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация ESP на C++: (Отдельная отрисовка / С использованием игровых механик)</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/j7EEscPc11I?si=JXq953V2Jw7riavd" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/72ec8f37-c571-4f4c-8b09-b15d69293172" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/esp-linii-na-c-99648503" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">esp</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">dnSpy</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация 2D/3D BOX + ESP Скелет на C++</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/GYALuJqsaE4?si=S78_W5bQiymRcnco" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/f73702d6-decd-4cd8-b06c-2e4f5820ebfd" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/realizatsiia-2d-100115012?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">esp</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ghydra</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация Health-bar, чтение/отрисовка строк на C++</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/qRmmD-PZfcg" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/101d628b-de9d-49d2-b231-7894d40ea36e?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/otrisovka-i-iz-100602966?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Ускорение кода, параллельная обработка задач в читах с использованием многопоточности на примере AOB скана</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://www.youtube.com/watch?v=NqoCyEH-dXg" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/7e443918-b3b9-4503-80c5-7e7b2d436ff6" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/uskorenie-za-102259387?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">multithreading</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">aob</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация Aim-Assist, FOV, приоритета выбора цели</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/sT-bwHABTsU" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/c123f4b0-64b0-4bb1-ae30-7226ad779378" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/aim-assist-fov-103286757?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">aim</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">unity</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Пример Internal-реализации чтения, записи памяти. Загрузка/Выгрузка dll, отладка. Работа со структурами.</p>
+<div class="flex flex-row space-x-2 m-1">
+
+    <a href="https://youtu.be/7NVX6BWPYXk" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/youtubelogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 9, 9, 0.99));" />
+    </a>
+
+
+    <a href="https://boosty.to/andrew_feed/posts/b6097906-5ba3-4114-be03-30e9dae6503a" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/internal-dll-101360157?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">internal</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Работа с Internal DirectX хуком и отрисовкой, реализация блокировки ввода, меню и Internal WallHack </p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/0678deae-9f90-48c8-9611-2c4f190c2a4e" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/internal-directx-101867129?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">internal</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">direct x</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Алгоритмы AOB (Pattern Scan), сравнение, internal реализация</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/2b56e028-4d9c-47ab-9473-7cd8d2ea4f7b?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/internal-poisk-102780500?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">internal</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">aob</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реверсинг кода: Infinite Ammo, No Recoil, No Spread, Rapid Fire, Auto Gun, Fast Knife на C++</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/a95cf696-121d-479e-8eea-fb6fbf77655c" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/otkliuchenie-na-103791250?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ghydra</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Поиск View Matrix, реализация функции WorldToScreen</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/c104da43-5ad7-466f-b110-7d25cd470b5c" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/primer-poiska-104091616?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">world to screen</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Написание ESP, поиск Entity List, структур игроков, локального игрока</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/22467658-b314-4bed-9f96-78b6d3d726cd" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/poisk-entity-esp-104665945?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">esp</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">entity list</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ghydra</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Визуальный подход при поиске View Matrix на C++</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/78674e19-01ae-4394-89e9-edb46e97f653?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/vizualnyi-pri-105034117?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">view matrix</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Пишем AIM (Vector) на C++</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/e2be9ef8-f124-4d45-b6d6-602f33e4f466" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/pishem-aim-na-c-105577701?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">aim</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">reclass</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация магических пуль/прострела с проверкой на команду игрока. Inline Hooking/Code Injection</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/ec277b99-47bb-403d-97cc-c05b90aa61e2?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/magicheskie-puli-106087340?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ghydra</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ida</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Реализация Items ESP / Подсветка предметов, лута на карте</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/56b42bc4-c7f4-4adc-a942-7c638f9301e0?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/otobrazhenie-na-106792630?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">esp</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ida</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">reclass</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Внешний радар + отображение сущностей на миникарте внутри игры</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/af77817b-5cc7-44c8-9ee6-f6a71532e609?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/radar-dvumia-107476574?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">c++</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">asm</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">external</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">ida</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Всё что нужно знать о DMA картах</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/ff65b13f-9f13-42dc-ae49-77bf19f953f7" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/108529026?pr=true" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">dma</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Использование Cheat Engine/ReClass через DMA карту</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/92c052a8-7542-40f3-be24-4cae69a8c065?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/rabota-s-cherez-109692321?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">dma</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">reclass</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Компиляция Cheat Engine, обход детекта в FH5</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/dcf6199d-a474-4f89-8c89-5d6e3f742912" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/kompiliatsiia-108117905?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">cheat engine</span>
+
+
+</div>
+
+<div class="mb-1 p-1 border-l-4 border-gray-500" style="background-color: #1e1e1e; color: rgb(255,128,0)">
+<p class="m-0" style="font-family: 'Consolas', monospace;">Написал чит на PascalABC.NET</p>
+<div class="flex flex-row space-x-2 m-1">
+
+
+    <a href="https://boosty.to/andrew_feed/posts/761aeeab-3b0e-4dc8-a3d2-acadf3a99f0b?share=post_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/boostylogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgba(255, 128, 9, 0.5));" />
+    </a>
+
+
+    <a href="https://www.patreon.com/posts/napisal-chit-na-109099377?utm_medium=clipboard_copy&amp;utm_source=copyLink&amp;utm_campaign=postshare_creator&amp;utm_content=join_link" target="_blank" rel="noopener noreferrer">
+      <img src="/assets/images/patreonlogo64x64.png" width="20" height="20" style="filter: drop-shadow(0 0 0.2rem rgb(255, 255, 255));" />
+    </a>
+
+</div>
+
+ 
+<span class="me-2 px-2.5 py-0.5 rounded" style="background-color: #5f1b28; color: white; font-size: 10px;">pascal</span>
+
+
+</div>
+
+
+                
+
+            </div>
+            
+
+            <div class="flex justify-center space-x-2">
+    
+    <a href="/ru" class="no-underline justify-center"> 
+    
+        <p class="text-gray-600 mb-4 author text-center mt-0">andrewfeed</p>
+    </a>
+    <p class="text-gray-600 mb-4 author text-center mt-0"> • </p>
+    <a href="mailto:example@example.com" class="no-underline justify-center"> 
+        <p class="text-gray-600 mb-4 author text-center mt-0" href="andrewfeed@proton.me">andrewfeed@proton.me</p>
+    </a>
+</div>
+           
+            <!--<section>
+                <h3>Другие публикации</h3>
+                <ul>
+                    
+                    
+                        <li>
+                            <a href="/ru/%D1%87%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-%D0%BB%D0%BE%D0%B6%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D1%82%D0%B5%D0%BA%D1%82">Что такое ложный детект</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/ru/Unreal-Engine-4-%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1-%D0%BF%D0%BE%D0%B8%D1%81%D0%BA%D0%B0-GWorld">Unreal Engine 4 способ поиска GWorld</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/en/Unreal-Engine-4-how-to-find-GWorld-offset">Unreal Engine 4 how to find GWorld offset</a>
+                        </li>
+                    
+                </ul>
+            </section>-->
+        </div>
+    </main>
+</body>
+</html>
