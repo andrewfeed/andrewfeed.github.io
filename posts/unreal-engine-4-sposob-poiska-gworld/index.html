@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" class="">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <title>Unreal Engine 4 способ поиска GWorld</title>
+        <meta name="description" content="Подробное руководство по поиску GWorld в играх на Unreal Engine 4 с использованием IDA, анализа бинарников и исходного кода движка. Методика работы с оффсетами и взаимодействие с объектами UWorld.">
+        
+          <link rel="canonical" href="https://andrewfeed.xyz/posts/unreal-engine-4-sposob-poiska-gworld/">
+          <meta property="og:url" content="https://andrewfeed.xyz/posts/unreal-engine-4-sposob-poiska-gworld/">
+        
+        <meta property="og:title" content="Unreal Engine 4 способ поиска GWorld">
+        <meta property="og:description" content="Подробное руководство по поиску GWorld в играх на Unreal Engine 4 с использованием IDA, анализа бинарников и исходного кода движка. Методика работы с оффсетами и взаимодействие с объектами UWorld.">
+        <meta property="og:type" content="article">
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Unreal Engine 4 способ поиска GWorld">
+        <meta name="twitter:description" content="Подробное руководство по поиску GWorld в играх на Unreal Engine 4 с использованием IDA, анализа бинарников и исходного кода движка. Методика работы с оффсетами и взаимодействие с объектами UWorld.">
+        
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Unreal Engine 4 способ поиска GWorld",
+          "description": "Подробное руководство по поиску GWorld в играх на Unreal Engine 4 с использованием IDA, анализа бинарников и исходного кода движка. Методика работы с оффсетами и взаимодействие с объектами UWorld.",
+          "author": { "@type": "Person", "name": "andrewfeed" },
+          "datePublished": "2024-08-05",
+          "url": "https://andrewfeed.xyz/posts/unreal-engine-4-sposob-poiska-gworld/"
+        }
+        </script>
+        
+
+        <link rel="stylesheet" href="/assets/css/tailwind.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <script src="/assets/js/link-targets.js" defer></script>
+    </head>
+    <body class="bg-zinc-950 text-gray-100">
+        <div class="flex justify-center items-center min-h-screen pt-10">
+            <div class="w-full max-w-3xl p-4 pb-50"> 
+  <header>
+    <h1 class="text-center">Unreal Engine 4 способ поиска GWorld</h1>
+    
+    
+      <nav class="text-center tags-list mt-3">
+        <ul class="inline-flex flex-wrap justify-center gap-2">
+          
+            <li>
+              <a href="/tags/game-hacking/" class="text-white">Game Hacking</a>
+            </li>
+          
+            <li>
+              <a href="/tags/reverse-engineering/" class="text-white">Reverse Engineering</a>
+            </li>
+          
+            <li>
+              <a href="/tags/ida/" class="text-white">IDA</a>
+            </li>
+          
+            <li>
+              <a href="/tags/unreal-engine-4/" class="text-white">Unreal Engine 4</a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+    <div class="flex justify-center space-x-2 mt-3">
+      <a href="/">
+        <p class="author text-center mt-0">andrewfeed</p>
+      </a>
+      <p class="author text-center mt-0">
+        ▪
+      </p>
+      <p class="author text-center mt-0">05 AUG 2024</p>
+    </div>
+  </header>
+  <div class="post-content">
+    <h2>Что такое GWorld?</h2>
+<p>При реверс-инжиниринге игр использующих движок Unreal Engine 4, как и при большинстве таких случаев, логичным способом будет прибегнуть к соответствующему способу взаимодействия с объектами хранящимися в памяти. Его суть заключается в взаимодействии с типичной для серии этих движков иерархии, во главе которой стоит объект класса UWorld. Вы так же можете встретить название GWorld, в действительности он называется именно GWorld, а UWorld — это имя класса в исходном коде UE. Этот класс и следующие за ним содержат большинство игровой информации, которая может вам понадобится в разработке.</p>
+<p>Так же для работы с дамперами, которые позволяют извлечь структуры данных из памяти и сгенерировать SDK, тоже будет нужен этот оффсет.</p>
+<h2>Способ поиска GWorld</h2>
+<p>Нам будет нужна IDA, бинарник игры или её дамп. Суть подхода к поиску состоит в использовании открытого кода движка, строковые литералы из которого можно сопоставлять со скомпилированной логикой.</p>
+<p>После открытия в IDA и завершения анализа файла генерируем список строк, при этом должна быть включена поддержка строк юникода - Unicode C-style (16 bits).</p>
+<p>Переходим к исходному коду движка и ищем вхождения подстроки &quot;= GWorld&quot;. Это те моменты, где идёт обращение к GWorld. Поиск нужно осуществлять в тех файлах, которые компилируются в бинарник и не имеют отношения к окружению разработки, то есть по пути Engine\Source\Runtime. Далее находим рядом стоящие строки в коде. Желательно найти их в одной и той же функции, но в некоторых случах такой подход может потребовать поиск через вложенные вызовы.</p>
+<p>Вот один из примеров, функция IsServerDelegateForOSS, которая содержит в своём теле следующую логику</p>
+<figure>
+    <img src="/posts/1.png" alt="Исходный код функции IsServerDelegateForOSS" loading="lazy">
+    <figcaption>Исходный код функции IsServerDelegateForOSS</figcaption>
+  </figure>
+<p>Тут мы видим и обращение к GWorld и строковый литерал в одной функции.</p>
+<p>Переходим в окно поиска строк и выполняем поиск по строке и находим её, ищем xref'ы и по счастливой случайности у нас оказалась только одна ссылка на это значение. В случае если у вас есть возможность найти уникальную константу - нужно этим пользоваться, ну а если у вас там несколько десятков ссылок то придётся перейти по каждой и анализировать код либо искать более уникальное значение.</p>
+<p>Переходим по ссылке и наблюдаем совсем маленький граф потока управления.</p>
+<figure>
+    <img src="/posts/2.png" alt="Предположительно граф потока IsServerDelegateForOSS" loading="lazy">
+    <figcaption>Предположительно граф потока IsServerDelegateForOSS</figcaption>
+  </figure>
+<p>На этом шаге если мы хоть немного знаем ассемблер, то мы можем увидеть обращение к статической секции данных, а именно запись в регистр rbx значения по адресу qword_1443795D8 в случае, если флаг ZF = 0. Можно основываясь на этом предположить, что это скомпилированная проверка истинности значения в GIsPlayInEditorWorld и последующие присваивание World = GWorld. Чтобы убедится в этом окончательно переходим в вывод декомпилятора и наблюдаем следующий код:</p>
+<figure>
+    <img src="/posts/3.png" alt="Восстановленная из ассемблера функция IsServerDelegateForOSS" loading="lazy">
+    <figcaption>Восстановленная из ассемблера функция IsServerDelegateForOSS</figcaption>
+  </figure>
+<p>Снизу текстовая константа, выше проверка истинности значения в статической секции - byte_1441FE851, а в случае истинности присваивание значения локальной переменной из статической секции, то есть это именно то, от чего мы отталкивались в исходном коде движка. Говоря простыми словами World = GWorld это v1 = qword_1443795D8. Исходя из этого можно вычислить оффсет вычитая из значения 1443795D8 базовый адрес:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mn mathvariant="monospace">0</mn><mi mathvariant="monospace">x</mi><mn mathvariant="monospace">1</mn><mn mathvariant="monospace">4</mn><mn mathvariant="monospace">4</mn><mn mathvariant="monospace">3</mn><mn mathvariant="monospace">7</mn><mn mathvariant="monospace">9</mn><mn mathvariant="monospace">5</mn><mi mathvariant="monospace">D</mi><mn mathvariant="monospace">8</mn></mrow><mo>−</mo><mrow><mn mathvariant="monospace">0</mn><mi mathvariant="monospace">x</mi><mn mathvariant="monospace">1</mn><mn mathvariant="monospace">4</mn><mn mathvariant="monospace">0</mn><mn mathvariant="monospace">0</mn><mn mathvariant="monospace">0</mn><mn mathvariant="monospace">0</mn><mn mathvariant="monospace">0</mn><mn mathvariant="monospace">0</mn><mn mathvariant="monospace">0</mn></mrow><mo>=</mo><mrow><mn mathvariant="monospace">0</mn><mi mathvariant="monospace">x</mi><mn mathvariant="monospace">4</mn><mn mathvariant="monospace">3</mn><mn mathvariant="monospace">7</mn><mn mathvariant="monospace">9</mn><mn mathvariant="monospace">5</mn><mi mathvariant="monospace">D</mi><mn mathvariant="monospace">8</mn></mrow></mrow><annotation encoding="application/x-tex">\mathtt{0x1443795D8} - \mathtt{0x140000000} = \mathtt{0x43795D8}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.61111em;"></span><span class="strut bottom" style="height:0.6944400000000001em;vertical-align:-0.08333em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord displaystyle textstyle uncramped"><span class="mord mathtt">0</span><span class="mord mathtt">x</span><span class="mord mathtt">1</span><span class="mord mathtt">4</span><span class="mord mathtt">4</span><span class="mord mathtt">3</span><span class="mord mathtt">7</span><span class="mord mathtt">9</span><span class="mord mathtt">5</span><span class="mord mathtt">D</span><span class="mord mathtt">8</span></span><span class="mbin">−</span><span class="mord displaystyle textstyle uncramped"><span class="mord mathtt">0</span><span class="mord mathtt">x</span><span class="mord mathtt">1</span><span class="mord mathtt">4</span><span class="mord mathtt">0</span><span class="mord mathtt">0</span><span class="mord mathtt">0</span><span class="mord mathtt">0</span><span class="mord mathtt">0</span><span class="mord mathtt">0</span><span class="mord mathtt">0</span></span><span class="mrel">=</span><span class="mord displaystyle textstyle uncramped"><span class="mord mathtt">0</span><span class="mord mathtt">x</span><span class="mord mathtt">4</span><span class="mord mathtt">3</span><span class="mord mathtt">7</span><span class="mord mathtt">9</span><span class="mord mathtt">5</span><span class="mord mathtt">D</span><span class="mord mathtt">8</span></span></span></span></span></span></p>
+<p>Из кода при external подходе взаимодействие с оффсетом будет выглядеть так:</p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">GWORLD_OFFSET</span> <span class="token expression"><span class="token number">0x43795D8</span></span></span>
+<span class="token keyword">uint64_t</span> moduleBase <span class="token operator">=</span> <span class="token function">GetModuleBaseAddress</span><span class="token punctuation">(</span>PROCESS_NAME<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">uint64_t</span> GWorldAddress <span class="token operator">=</span> moduleBase <span class="token operator">+</span> GWORLD_OFFSET<span class="token punctuation">;</span>
+UWorld GWorld <span class="token operator">=</span> <span class="token function">UWorld</span><span class="token punctuation">(</span>GWorldAddress<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2>Заключение</h2>
+<p>Таким образом, теперь вы знаете как находить GWorld оффсет для игр на движке Unreal Engine 4.</p>
+
+  </div>
+  <div class="flex justify-center space-x-2 mt-8">
+    <a href="#top">Наверх</a>
+  </div>
+  <link href="/assets/css/prism-custom.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
+
+                </div>
+            </div>
+        </body>
+    </html>

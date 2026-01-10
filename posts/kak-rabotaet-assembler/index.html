@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru" class="">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <title>Как работает Assembler</title>
+        <meta name="description" content="Что такое ассемблер и как он работает">
+        
+          <link rel="canonical" href="https://andrewfeed.xyz/posts/kak-rabotaet-assembler/">
+          <meta property="og:url" content="https://andrewfeed.xyz/posts/kak-rabotaet-assembler/">
+        
+        <meta property="og:title" content="Как работает Assembler">
+        <meta property="og:description" content="Что такое ассемблер и как он работает">
+        <meta property="og:type" content="article">
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Как работает Assembler">
+        <meta name="twitter:description" content="Что такое ассемблер и как он работает">
+        
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Как работает Assembler",
+          "description": "Что такое ассемблер и как он работает",
+          "author": { "@type": "Person", "name": "andrewfeed" },
+          "datePublished": "2026-01-06",
+          "url": "https://andrewfeed.xyz/posts/kak-rabotaet-assembler/"
+        }
+        </script>
+        
+
+        <link rel="stylesheet" href="/assets/css/tailwind.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <script src="/assets/js/link-targets.js" defer></script>
+    </head>
+    <body class="bg-zinc-950 text-gray-100">
+        <div class="flex justify-center items-center min-h-screen pt-10">
+            <div class="w-full max-w-3xl p-4 pb-50"> 
+  <header>
+    <h1 class="text-center">Как работает Assembler</h1>
+    
+    
+      <nav class="text-center tags-list mt-3">
+        <ul class="inline-flex flex-wrap justify-center gap-2">
+          
+            <li>
+              <a href="/tags/reverse-engineering/" class="text-white">Reverse Engineering</a>
+            </li>
+          
+            <li>
+              <a href="/tags/assembler/" class="text-white">Assembler</a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+    <div class="flex justify-center space-x-2 mt-3">
+      <a href="/">
+        <p class="author text-center mt-0">andrewfeed</p>
+      </a>
+      <p class="author text-center mt-0">
+        ▪
+      </p>
+      <p class="author text-center mt-0">06 JAN 2026</p>
+    </div>
+  </header>
+  <div class="post-content">
+    <h2>Что такое Assembler</h2>
+<p>Ассемблер (язык assembler) - способ представить команды процессора в виде, доступном для чтения человеком.
+Когда человек пишет код на каком-либо языке, будь то C++, Rust или любой другой язык - этот код выполняется процессором не напрямую. Языки имеют множество различных конструкций и команд, которые просто невозможно было бы уместить в процессоре, поэтому весь написанный код тем или иным образом перед выполнением компилируется / интерпретируется в машинный код.
+Сам по себе машинный код это просто набор байтов - нулей и единиц, который понятен только процессору и не удобен для восприятия человеком. Поэтому чтобы понимать команды выполняемые процессором существует язык ассемблер.</p>
+<h3>Пример компиляции C++ и разбор ASM кода</h3>
+<p>Чтобы было понятнее можно разобрать такой пример:</p>
+<pre class="language-cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> b<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">scanf_s</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> result <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p>После компиляции и открытия этого кода через дизассемблер IDA мы наблюдаем следующую картину:</p>
+<pre class="language-nasm"><code class="language-nasm">mov     <span class="token register variable">edx</span>, <span class="token operator">[</span><span class="token register variable">rsp</span><span class="token operator">+</span><span class="token number">38h</span><span class="token operator">+</span>var_18<span class="token operator">]</span>
+lea     <span class="token register variable">rcx</span>, Format     <span class="token comment">; "%d\n"</span>
+add     <span class="token register variable">edx</span>, <span class="token operator">[</span><span class="token register variable">rsp</span><span class="token operator">+</span><span class="token number">38h</span><span class="token operator">+</span>var_14<span class="token operator">]</span>
+call    sub_140001020</code></pre>
+<p>Разумеется, это не весь код. Это только часть где выполняется сложение двух чисел и вывод результата.<br>
+Теперь давайте касательно каждого фрагмента кода.</p>
+<pre class="language-nasm"><code class="language-nasm">mov     <span class="token register variable">edx</span>, <span class="token operator">[</span><span class="token register variable">rsp</span><span class="token operator">+</span><span class="token number">38h</span><span class="token operator">+</span>var_18<span class="token operator">]</span></code></pre>
+<p>Тут мы заносим значение первой переменной из стека в регистр EDX.</p>
+<pre class="language-nasm"><code class="language-nasm">lea     <span class="token register variable">rcx</span>, Format     <span class="token comment">; "%d\n"</span></code></pre>
+<p>Далее чтобы вызвать printf нам нужен первый аргумент - формат вывода, который заносится в регистр RCX.</p>
+<pre class="language-nasm"><code class="language-nasm">add     <span class="token register variable">edx</span>, <span class="token operator">[</span><span class="token register variable">rsp</span><span class="token operator">+</span><span class="token number">38h</span><span class="token operator">+</span>var_14<span class="token operator">]</span></code></pre>
+<p>После этого мы выполняем сложение двух чисел - первое берём из регистра EDX, а второе - из стека, результат записываем в EDX.</p>
+<pre class="language-nasm"><code class="language-nasm">call    sub_140001020</code></pre>
+<p>А далее нам остаётся вызвать саму функцию printf. Аргументы в этом случае, согласно Windows x64 calling convention, передаются по текущим значениям регистров RCX (первый аргумент) и EDX (второй аргумент).</p>
+<h3>Отличие машинного кода от ассемблера</h3>
+<p>После разобранного примера мы уже знаем, что такое ассемблер, но что такое машинный код и как он выглядит? Давайте так же, на примере:</p>
+<pre class="language-nasm"><code class="language-nasm">mov     <span class="token register variable">eax</span>, <span class="token number">1</span></code></pre>
+<p>Это код на языке ассемблера, а представление в виде машинного кода будет выглядеть следующим образом:</p>
+<pre class="language-text"><code class="language-text">B8 01 00 00 00 </code></pre>
+<p>Думаю, что все согласятся с тем, что первый вариант более читаемый.</p>
+<p>То, как выглядит код на этом языке зависит от архитектуры процессора, у каждой архитектуры свой набор инструкций и регистров. В данном примере мы имеем дело с регистрами EDX, RSP, ECX и инструкциями MOV, LEA, ADD, CALL.</p>
+<p>В контексте x64 под ассемблером обычно подразумевается набор инструкций архитектуры x86-64, расширяющей классический x86 и используемой всеми современными десктопными и серверными процессорами компаний AMD и Intel.</p>
+<p>Важно понимать, что ассемблер - это не язык программирования в привычном смысле, а текстовое представление того, что реально выполняется на уровне процессора. Любая высокоуровневая логика и абстракции сводятся к переходам, работе с регистрами и памятью.</p>
+<h2>Что такое архитектура x64</h2>
+<p>Предшественник x64 архитектуры это x86, эволюция произошла по причине ограниченности объёма информации, которым мог оперировать процессор. Если говорить конкретнее, то максимальный размер указателя был 32 бита, максимально адресуемая память составляла 4 GB, что по сегодняшним меркам считается смешным. Поэтому в один момент стало ясно - нужны 64-битные адреса.</p>
+<p>Таким образом x64 архитектура расширила регистры до 64 бит, так же в неё были добавлены регистры общего назначения.</p>
+<h3>Регистры</h3>
+<p>В x64 практически вся логика строится вокруг регистров. Память используется как хранилище, но вычисления выполняются именно в регистрах.</p>
+<p>Базовый набор регистров общего назначения выглядит следующим образом:</p>
+<ul>
+<li>rax, rbx, rcx, rdx</li>
+<li>rsi, rdi</li>
+<li>rbp, rsp</li>
+<li>r8–r15</li>
+</ul>
+<p>Каждый из них может использоваться как целиком (64 бита), так и частично (32, 16 и 8 бит), что часто встречается в скомпилированном коде.</p>
+<p>Некоторые регистры имеют устоявшиеся роли:</p>
+<ul>
+<li>rax - возвращаемое значение функции</li>
+<li>rsp - указатель стека</li>
+<li>rbp - базовый указатель фрейма</li>
+<li>rcx, rdx, r8, r9 - аргументы функций в Windows x64 calling convention</li>
+</ul>
+<h3>Инструкции</h3>
+<p>Набор инструкций - это совокупность всех команд, которые процессор может выполнять напрямую. Он включает инструкции для:</p>
+<ul>
+<li>арифметические и логические операции: add, sub, imul, xor, and, or</li>
+<li>операции перемещения данных: mov, lea, push, pop</li>
+<li>операции управления потоком: jmp, call, ret, jz, jnz</li>
+<li>побитовые операции: shl, shr, rol, ror, bt</li>
+<li>операции взаимодействия с процессором: nop, hlt, cli, sti</li>
+</ul>
+<p>И это ещё не полный список. Если брать классический x86 без расширений то это набор где-то из ~200-250 инструкций, но эта архитектура развивалась десятилетиями и инструкции добавлялись вместе с выходом новых поколений процессоров. Например SIMD (single instruction, multiple data) - в архитектуре x64 SIMD реализован через отдельные наборы инструкций и регистров, это дополнение позволяет выполнять одну математическую операцию сразу над несколькими значениями. В один такой регистр помещается сразу несколько чисел, например четыре float или восемь int, и инструкция сложения выполнится над всеми элементами параллельно.</p>
+<p>Нужно ли знать все инструкции? - нет, это буквально бесполезный навык для разработки читов. Нужно знать и максимально осознавать принцип выполнения кода и базовый набор инструкций, этого будет достаточно чтобы хорошо ориентироваться в ассемблере.</p>
+<h3>Стек</h3>
+<p>Стек - ключевая структура для понимания ассемблера. Это область памяти, управляемая регистром rsp, которая используется процессором и компилятором для организации выполнения функций. При вызове функции в стек помещается адрес возврата, а также могут сохраняться значения регистров и локальные переменные. Любая инструкция call неявно работает со стеком, уменьшая rsp и записывая туда адрес следующей инструкции, а ret извлекает этот адрес обратно. Именно поэтому при анализе кода так важно понимать, как меняется rsp: ошибки в работе со стеком почти всегда приводят к крашу. В скомпилированном коде стек активно используется даже там, где это не очевидно, и без понимания его устройства невозможно анализировать вызовы функций.<br>
+Его можно представить как стопку книг, чтобы взять какую-либо из неё необходимо сначала взять все, лежащие сверху. Логика связанная со стеком обычно сложнее для понимания у новичков.</p>
+<h2>Заключение</h2>
+<p>Современные декомпиляторы позволяют буквально одной кнопкой преобразовывать машинный код в приближённое представление на языке C, но без базового понимания ассемблера вы не сможете банально написать вставку и перенаправить поток управления, ни говоря уже об использовании техники Code Caves.<br>
+При разработке читов это один из необходимых навыков.</p>
+
+  </div>
+  <div class="flex justify-center space-x-2 mt-8">
+    <a href="#top">Наверх</a>
+  </div>
+  <link href="/assets/css/prism-custom.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
+
+                </div>
+            </div>
+        </body>
+    </html>

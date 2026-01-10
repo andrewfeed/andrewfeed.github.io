@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru" class="">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <title>Internal и External читы - в чём различие?</title>
+        <meta name="description" content="Чем отличаются интернал и экстернал читы">
+        
+          <link rel="canonical" href="https://andrewfeed.xyz/posts/internal-i-external-chity-v-chyom-razlichie/">
+          <meta property="og:url" content="https://andrewfeed.xyz/posts/internal-i-external-chity-v-chyom-razlichie/">
+        
+        <meta property="og:title" content="Internal и External читы - в чём различие?">
+        <meta property="og:description" content="Чем отличаются интернал и экстернал читы">
+        <meta property="og:type" content="article">
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Internal и External читы - в чём различие?">
+        <meta name="twitter:description" content="Чем отличаются интернал и экстернал читы">
+        
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Internal и External читы - в чём различие?",
+          "description": "Чем отличаются интернал и экстернал читы",
+          "author": { "@type": "Person", "name": "andrewfeed" },
+          "datePublished": "2026-01-04",
+          "url": "https://andrewfeed.xyz/posts/internal-i-external-chity-v-chyom-razlichie/"
+        }
+        </script>
+        
+
+        <link rel="stylesheet" href="/assets/css/tailwind.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <script src="/assets/js/link-targets.js" defer></script>
+    </head>
+    <body class="bg-zinc-950 text-gray-100">
+        <div class="flex justify-center items-center min-h-screen pt-10">
+            <div class="w-full max-w-3xl p-4 pb-50"> 
+  <header>
+    <h1 class="text-center">Internal и External читы - в чём различие?</h1>
+    
+    
+      <nav class="text-center tags-list mt-3">
+        <ul class="inline-flex flex-wrap justify-center gap-2">
+          
+            <li>
+              <a href="/tags/game-hacking/" class="text-white">Game Hacking</a>
+            </li>
+          
+            <li>
+              <a href="/tags/internal/" class="text-white">Internal</a>
+            </li>
+          
+            <li>
+              <a href="/tags/external/" class="text-white">External</a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+    <div class="flex justify-center space-x-2 mt-3">
+      <a href="/">
+        <p class="author text-center mt-0">andrewfeed</p>
+      </a>
+      <p class="author text-center mt-0">
+        ▪
+      </p>
+      <p class="author text-center mt-0">04 JAN 2026</p>
+    </div>
+  </header>
+  <div class="post-content">
+    <h2>Internal vs External</h2>
+<p>В контексте читов существуют два понятия - Internal и External читы.<br>
+Они используются для обозначения двух принципиально разных подходов к вмешательству в работу игры. Различия между ними касаются архитектуры, способа внедрения, уровня доступа к данным игры и рисков обнаружения античитами.</p>
+<h2>Что такое Internal читы</h2>
+<p>Internal чит - это код, который разработан, чтобы напрямую внедряться в процесс игры и быть выполненным внутри её адресного пространства.</p>
+<h3>Как работают Internal читы</h3>
+<ul>
+<li>загружаются в память игры через DLL-инъекцию</li>
+<li>получают прямой доступ к игровым структурам данных</li>
+<li>перехватывают и используют функции игрового движка</li>
+<li>работают в том же процессе, что и игра</li>
+</ul>
+<p>Из преимуществ интернал читов можно выделить высокую скорость работы, поскольку нет затрат на выполнение WinApi-запросов, а код выполняется со скоростью выполнения кода игры. Используя этот подход мы так же получаем возможность вызывать внутренние функции у игровых объектов или отслеживать их моменты выполнения. Это позволяет реализовывать более разнообразный функционал в чите. Но отсюда вытекает и очевидный минус - сложность разработки. Мы работаем с сырой памятью и указателями внутри процесса и у нас нет права на ошибку. Одно неправильное разыменование указателя, и мы получим вылет. Так же если мы хотим видеть противников и иметь графический интерфейс, то нам придётся хукать функции связанные с рендерингом, что сильно усложняет жизнь новичкам. Функция, которую нужно будет хукать, зависит от API, которое использует игра, например в случае с DirectX 10 / 11 это будет IDXGISwapChain::Present.</p>
+<p>При создании такого типа чита используется проект типа Dynamic-Link Library и код компилируется в .dll файл.<br>
+Вот каким образом в этом случае выглядит точка входа приложения:</p>
+<pre class="language-cpp"><code class="language-cpp">BOOL APIENTRY <span class="token function">DllMain</span><span class="token punctuation">(</span> HMODULE hModule<span class="token punctuation">,</span>
+                       DWORD  ul_reason_for_call<span class="token punctuation">,</span>
+                       LPVOID lpReserved
+                     <span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>ul_reason_for_call<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> DLL_PROCESS_ATTACH<span class="token operator">:</span>
+        <span class="token comment">//И тут мы уже можем выполнять действия с памятью</span>
+    <span class="token keyword">case</span> DLL_THREAD_ATTACH<span class="token operator">:</span>
+    <span class="token keyword">case</span> DLL_THREAD_DETACH<span class="token operator">:</span>
+    <span class="token keyword">case</span> DLL_PROCESS_DETACH<span class="token operator">:</span>
+        <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> TRUE<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2>Что такое External читы</h2>
+<p>External читы - это код, который разработан, работать вне адресного пространства целевого процесса игры и взаимодействует с ней через операционную систему.</p>
+<h3>Как работают External читы</h3>
+<ul>
+<li>читают и записывают память игры извне</li>
+<li>не внедряются в процесс</li>
+<li>используют системные функции API</li>
+<li>используют свой рендеринг</li>
+</ul>
+<p>Преимущество такого подхода заключается в том, что мы сами вольны в выборе API рендеринга, и можно просто использовать один шаблон для любой игры. Но тут мы получаем некоторые сложности с тем, что у нас нет такой скорости как при интернал подходе, по причине временных затрат на вызов API функций для взаимодействия с памятью. Также, при интернал подходе мы ограничены чтением и записью памяти - мы не можем вызывать функции внутри процесса игры и приходится выкручиваться используя ASM-модификации.<br>
+Точка входа в external-чите выглядит в большинстве случаев следующим образом:</p>
+<pre class="language-cpp"><code class="language-cpp">INT APIENTRY <span class="token function">WinMain</span><span class="token punctuation">(</span>HINSTANCE instance<span class="token punctuation">,</span> HINSTANCE<span class="token punctuation">,</span> PSTR<span class="token punctuation">,</span> INT cmd_show<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">//тут мы в бесконечном цикле выполняем рендеринг нашего окна</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2>Основные различия Internal и External читов</h2>
+<table>
+<thead>
+<tr>
+<th>Критерий</th>
+<th>Internal</th>
+<th>External</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Место работы</td>
+<td>Внутри процесса игры</td>
+<td>Вне процесса игры</td>
+</tr>
+<tr>
+<td>Доступ к памяти</td>
+<td>Полный</td>
+<td>Ограниченный</td>
+</tr>
+<tr>
+<td>Доступ к функциям</td>
+<td>Полный</td>
+<td>Минимальный</td>
+</tr>
+<tr>
+<td>Скорость</td>
+<td>Высокая</td>
+<td>Ниже</td>
+</tr>
+<tr>
+<td>Сложность разработки</td>
+<td>Высокая</td>
+<td>Средняя</td>
+</tr>
+</tbody>
+</table>
+<h2>Что выбрать: Internal или External</h2>
+<p>Выбор подхода зависит от задач:</p>
+<ul>
+<li>Internal подходит, если требуется максимальный контроль и глубокая интеграция</li>
+<li>External предпочтителен при фокусе на простоте или при сложностях применения internal-подхода</li>
+</ul>
+<h2>Вывод</h2>
+<p>Internal и External читы отличаются не «качеством», а архитектурой и уровнем вмешательства. Internal обеспечивает полный доступ и максимальные возможности, но сложен в реализации. External ограничен по функциональности, но выигрывает за счёт стабильности и маленького порога входа.</p>
+<p>Понимание этих различий позволяет корректно оценивать возможности, риски и сложность реализации в каждом конкретном случае.</p>
+
+  </div>
+  <div class="flex justify-center space-x-2 mt-8">
+    <a href="#top">Наверх</a>
+  </div>
+  <link href="/assets/css/prism-custom.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"/>
+
+                </div>
+            </div>
+        </body>
+    </html>
